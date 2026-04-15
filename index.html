@@ -6,6 +6,20 @@
     <title>MyFirstTry</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        /* Floating contact card effect */
+        .contact-card {
+            max-width: 420px;
+            border-radius: 18px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transform: translateY(-10px);
+        }
+
+        .nav-link {
+            white-space: nowrap;
+        }
+    </style>
 </head>
 
 <body class="bg-light d-flex flex-column min-vh-100">
@@ -21,10 +35,12 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarNav">
-            <div class="ms-auto d-flex flex-column flex-lg-row gap-3">
+            <div class="ms-auto d-flex flex-column flex-lg-row gap-3 align-items-lg-center">
                 <a class="nav-link text-white" href="#" id="homeBtn">Home</a>
                 <a class="nav-link text-white" href="#" id="aboutBtn">About</a>
-                <a class="nav-link text-white" href="https://wa.me/60107782181" target="_blank">Contact Me </a>
+                <a class="nav-link text-white text-nowrap" href="https://wa.me/60107782181" target="_blank">
+                    Contact Me
+                </a>
             </div>
         </div>
 
@@ -54,12 +70,10 @@
                 <img src="fbs.png" class="card-img-top">
                 <div class="card-body text-center">
                     <h5>Facility Booking System</h5>
-                     <p class="text-muted small">Web system for booking facilities and managing schedules.</p>
+                    <p class="text-muted small">Web system for booking facilities and managing schedules.</p>
                     <button class="btn btn-primary btn-sm viewBtn"
                         data-title="Facility Booking System"
-                        data-overview="This project is a web-based system that allows users to view, search, and book facilities easily. 
-                                        It also provides staff with functions to manage facilities and customer information. 
-                                        The system improves efficiency by organizing bookings and preventing scheduling conflicts."
+                        data-overview="This project is a web-based system that allows users to view, search, and book facilities easily. It also provides staff with functions to manage facilities and customer information. The system improves efficiency by organizing bookings and preventing scheduling conflicts."
                         data-tech="HTML | CSS | PHP | MySQL">
                         View
                     </button>
@@ -73,12 +87,10 @@
                 <img src="pms.jpg" class="card-img-top">
                 <div class="card-body text-center">
                     <h5>Vehicle Parking Management System</h5>
-                      <p class="text-muted small">C++ system to manage parking entries and capacity.</p>
+                    <p class="text-muted small">C++ system to manage parking entries and capacity.</p>
                     <button class="btn btn-primary btn-sm viewBtn"
                         data-title="Vehicle Parking Management System"
-                        data-overview="This project is a C++ system designed to manage vehicle parking records. 
-                                        It helps track vehicles entering and leaving a parking lot, prevents duplicate entries, 
-                                        and ensures the parking capacity is not exceeded."
+                        data-overview="This project is a C++ system designed to manage vehicle parking records. It helps track vehicles entering and leaving a parking lot, prevents duplicate entries, and ensures the parking capacity is not exceeded."
                         data-tech="C++">
                         View
                     </button>
@@ -95,9 +107,7 @@
                     <p class="text-muted small">Android bus ticket booking app for Larkin Sentral.</p>
                     <button class="btn btn-primary btn-sm viewBtn"
                         data-title="LarkinCentral App"
-                        data-overview="The Larkin Sentral Bus Ticket Booking App is an Android-based mobile application developed as a final-year MP project. 
-                                        The system is designed to improve the traditional bus ticket booking process at Larkin Sentral by making it more convenient, 
-                                        faster, and user-friendly."
+                        data-overview="The Larkin Sentral Bus Ticket Booking App is an Android-based mobile application developed as a final-year MP project. The system is designed to improve the traditional bus ticket booking process at Larkin Sentral by making it more convenient, faster, and user-friendly."
                         data-tech="Android Studio | Firebase | GitHub">
                         View
                     </button>
@@ -105,6 +115,49 @@
             </div>
         </div>
 
+    </div>
+</div>
+
+<!-- CONTACT FORM -->
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card p-4 shadow-sm bg-white">
+                <h2 class="text-center mb-4">Contact Us</h2>
+                <form id="contactForm">
+                    <div class="mb-3">
+                        <label class="form-label">Name</label>
+                        <input type="text" class="form-control" id="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Message</label>
+                        <textarea class="form-control" id="message" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- CONTACT MODAL -->
+<div class="modal fade" id="contactModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Contact Submitted🎉</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body" id="contactModalBody"></div>
+
+        </div>
     </div>
 </div>
 
@@ -124,6 +177,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const modal = new bootstrap.Modal(document.getElementById('mainModal'));
     const title = document.getElementById('modalTitle');
     const body = document.getElementById('modalBody');
+
+    const contactModal = new bootstrap.Modal(document.getElementById('contactModal'));
+    const contactBody = document.getElementById('contactModalBody');
 
     document.getElementById('homeBtn').addEventListener('click', function(e) {
         e.preventDefault();
@@ -168,6 +224,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
             modal.show();
         });
+    });
+
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const message = document.getElementById('message').value;
+
+        contactBody.innerHTML = `
+            <p><strong>Name:</strong> ${name}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Message:</strong><br>${message}</p>
+        `;
+
+        contactModal.show();
+
+        this.reset();
     });
 
 });
